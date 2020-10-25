@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/post_search.css' %}" />
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+<section id="banner" class="major">
+	<div class="inner">
+		<header class="major">
+			<h1>택배 조회</h1>
+		</header>			
+	</div>
+</section>
+<!-- Main -->
+<div id="main2">
+	<div class="member_box">
+		<div class="box_font">
+			
+			<img src="{% static 'images/lotte_postbox.png' %}" alt="">
+			<p>운송장 조회</p>
+		</div>
+	</div>
+</div>
+<div class="main_under">
+	<form class="post_form" action="{% url 'post_search_detail' %}" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<input class="post_number" name = "code" type="text" placeholder="-제외한 숫자만 공백 없이 입력">
+		<input class="post_submit" type="submit" value="조회">
+	</form>
+</div>
+	<div class="desc">
+		<p style = "color:red;">{{error}}</p>
+		<p>3개월 이내의 정보만 조회가 가능합니다.</p>
+	</div>
+{% endblock %}
+
+			</div>
+	</body>
+</html>

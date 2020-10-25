@@ -1,0 +1,76 @@
+@charset "utf-8";
+html, body, div, span, applet, object, iframe, h1,  h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym,
+address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, 
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, 
+details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, 
+video, button, input, textarea, select, option{margin:0;padding:0;border:0;color:#54585a;font-size:16px;font-family:'MontserratR', 'NotoSansM', '맑은 고딕', Malgun Gothic, '돋움', Dotum, arial, apple Gothic;letter-spacing:-0.05em;vertical-align:middle;box-sizing:border-box}
+
+/* HTML5 display-role reset for older browsers */
+html{height:100%}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, textarea{display:block}
+body{position:relative}
+
+ol, ul{list-style:none;}
+ol:after{content:'';display:block;clear:both}
+blockquote, q{quotes:none}
+blockquote:before, blockquote:after, q:before, q:after{content:'';content:none}
+
+a, a:hover, a:active{text-decoration:none;cursor:pointer}
+img{vertical-align:middle}
+caption{overflow:hidden;width:0;height:0;font-size:0;text-indent:-9999em}
+.blind, legend{overflow:hidden;position:absolute;top:-9999em;left:-9999em;width:0;height:0;font-size:0;text-indent:-9999em}
+
+body{-webkit-text-size-adjust:100%}
+em{font-style:normal}
+button{padding:0;background:none;border:0;cursor:pointer}
+
+table{table-layout:fixed;width:100%;border-collapse:collapse;border-spacing:0;word-break:break-all}
+table th{font-weight:400}
+table th, table td{vertical-align:middle}
+.tl{text-align:left !important}
+.tc{text-align:center !important}
+.tr{text-align:right !important}
+
+.vtop{vertical-align:top !important}
+.vmid{vertical-align:middle !important}
+.vbtm{vertical-align:bottom !important}
+.vbase{vertical-align:baseline !important}
+
+ul:after, ol:after{content:'';display:block;clear:both}
+
+label{cursor:pointer}
+textarea{resize:none}
+.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.blind{overflow:hidden;position:absolute;top:-9999em;left:-9999em;width:0;height:0;margin:0;padding:0;font-size:0}
+.block{display:block !important}
+.bold{font-family:'NotoSansB' !important}
+
+.mt0{margin-top:0 !important}
+.mt10{margin-top:10px !important}
+.mt15{margin-top:15px !important}
+.mt20{margin-top:20px !important}
+.mt30{margin-top:30px !important}
+.mt40{margin-top:40px !important}
+.mt60{margin-top:60px !important}
+.mt80{margin-top:80px !important}
+
+.mb0{margin-bottom:0px !important}
+.mb10{margin-bottom:10px !important}
+.mb20{margin-bottom:20px !important}
+.mb30{margin-bottom:30px !important}
+
+.ml0{margin-left:0px !important}
+.ml5{margin-left:5px !important}
+.ml10{margin-left:10px !important}
+.ml20{margin-left:20px !important}
+.ml25{margin-left:25px !important}
+.ml38{margin-left:38px !important}
+.ml30{margin-left:30px !important}
+
+.mr10{margin-right:10px !important}
+.mr20{margin-right:20px !important}
+.mr30{margin-right:30px !important}
+
+.f400{font-weight:400 !important}
+.f700{font-weight:700 !important}

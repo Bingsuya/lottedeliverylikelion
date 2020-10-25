@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/post_reservation.css' %}">
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+<section id="banner" class="major">
+    <div class="inner">
+        <header class="major">
+            <h1>택배예약</h1>
+            <h3>24시간 온라인으로 택배 예약을 간편하게 하실 수 있습니다.</h3>
+        </header>
+</section>
+
+<!-- Main -->
+<div class="post_reservation_info">
+<div class="post_reservation_info_wrap">
+    <div class="info_btn_wrap">
+        <a href="{% url 'post_search' %}"><button class="post_reservation_btn">택배조회</button></a>
+        <a href="{% url 'post_reserve_look' %}"><button class="post_reservation_btn">택배예약조회</button></a>
+    </div>
+    <form action="{% url 'post_reservation' %}" method="post">
+        {% csrf_token %}
+        <div class="post_reservation_con">
+            <div class="item_box_send_contents">
+                <div class="item_box_send">
+                    <div class="t_text">01  보내시는 분</div> 
+                    <div class="s_text">*필수입력사항</div>
+                </div>
+                <table class="item_box_send_table">
+                    <tr>
+                        <td>성명*</td>
+                        <td><input type="text" name=sender placeholder="한글만 입력"></td>
+                    </tr>
+                    <tr>
+                        <td>전화번호*</td>
+                        <td><input type="text" name=sender_phone></td>
+                    </tr>
+                    <tr>
+                        <td>주소*</td>
+                        <td><input type="text" name=sender_address></td>
+                    </tr>
+                    <!-- <tr>
+                        <td>집하점소</td>
+                        <td><input type="text"></td>
+                    </tr> -->
+                    <tr>
+                        <td>방문희망일</td>
+                        <td><input type="date" name=visit_date></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="item_box_send_contents">
+                <div class="item_box_send">
+                    <div class="t_text">02  받으시는 분</div> 
+                    <div class="s_text">*필수입력사항</div>
+                </div>
+                <table class="item_box_send_table">
+                    <tr>
+                        <td>성명*</td>
+                        <td><input type="text" name=receiver placeholder="한글만 입력"></td>
+                    </tr>
+                    <tr>
+                        <td>전화번호*</td>
+                        <td><input type="text" name=receiver_phone></td>
+                    </tr>
+                    <tr>
+                        <td>주소*</td>
+                        <td><input type="text" name=receiver_address></td>
+                    </tr>
+                    <!-- <tr>
+                        <td>집하점소</td>
+                        <td><input type="text"></td>
+                    </tr> -->
+                </table>
+            </div>
+            <div class="item_box_send_contents">
+                <div class="item_box_send">
+                    <div class="t_text">03  배달물품정보</div> 
+                    <div class="s_text">*필수입력사항</div>
+                </div>
+            </div>
+            <table class="item_box_send_table">
+                <tr>
+                    <td>상세물품명*</td>
+                    <td><input type="text" name=box_detail></td>
+                </tr>
+                <tr>
+                    <td>물품가액*</td>
+                    <td><input type="text" name=box_value placeholder="최대 300만원까지 입력"></td>
+                </tr>
+                <tr>
+                    <td>물품크기*</td>
+                    <td>
+                        <select name=box_size>
+                            <option value="">선택</option>
+                            <option value="소형">소형</option>
+                            <option value="중형">중형</option>
+                            <option value="대형">대형</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>물품개수</td>
+                    <td><input type="text" name = box_amount ></td>
+                </tr>
+                <tr>    
+                    <td rowspan="2">택배운임구분</td>
+                    <td>
+                        <select name=box_pay>
+                            <option value="">결제방법</option>
+                            <option value="pre">선불 결제</option>
+                            <option value="post">착불 결제</option>
+                        </select>
+                    </td>
+                </tr>
+                <!-- <tr>
+                    <td>
+                        <select>
+                            <option value="">결제수단</option>
+                            <option value="택배기사 방문 시 결제">택배기사 방문 시 결제</option>
+                            <option value="카드/휴대폰 결제">카드/휴대폰 결제</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>예상택배 운임</td>
+                    <td><input type="text"></td>
+                </tr> -->
+            </table>
+            <div class="button_wrap">
+                <button type="reset" class="post_reservation_reset">재작성</button>    
+                <button type="submit" class="post_reservation_submit" onclick="alertfunc()">택배예약</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<script>
+    function alertfunc() {
+        alert("등록완료");
+    }
+</script>
+{% endblock %}

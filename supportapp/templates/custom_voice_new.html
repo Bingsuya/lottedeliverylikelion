@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/custom_voice_new.css' %}">
+{% endblock %}
+
+{% block contents %}
+
+ <!-- Banner -->
+ <section id="banner" class="major">
+    <div class="inner">
+        <header class="major">
+            <h1>고객의 소리</h1>
+            <h3>택배 관련 건의사항을 작성하고 볼 수 있습니다.</h3>
+        </header>
+    </div>
+</section>
+
+    <!-- Main -->
+    <div class="post_reservation_info">
+        <div class="post_reservation_info_wrap">
+            <div class="black">고객의 소리</div>
+            <div class="smallblack">저희 서비스를 이용하면서 느끼신 불편한 사항이나 칭찬할 만한 내용에 대하여 의견을 남기실 수 있습니다.</div>
+            
+        
+        
+        <fieldset>
+        <form method="post" action="{% url 'custom_voice_new' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="post_reservation_con">
+                <div class="item_box_send_contents">
+                    <table class="item_box_send_table">
+                        <tr>
+                            <td>성명</td>
+                            <td style="padding:0 34px;">{{ request.user.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>전화번호</td>
+                            <td style="padding:0 34px;">{{ request.user.phone }}</td>
+                        </tr>
+                        <tr>
+                            <td>운송장번호</td>
+                            <td><input type="text" name="q_boxcode" id="number" placeholder="-제외한 숫자만 입력"/></td>
+                        </tr>
+                        <tr>
+                            <td>유형선택</td>
+                            <td><select name="q_type">
+                                <option value="">선택</option>
+                                <option value="기타">기타</option>
+                                <option value="불친절">불친절</option>
+                                <option value="지연배송">지연배송</option>
+                                <option value="3자배송">3자배송</option>
+                                <option value="집하불이행">집하불이행</option>
+                                <option value="사고처리지연">사고처리지연</option>
+                                <option value="화물사고">화물사고</option>
+                                <option value="제안">제안</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제목</td>
+                            <td><input type="text" name = "q_title" placeholder="20자 이내로 입력"></td>
+                        </tr>
+                        <tr>
+                             <td>내용</td>
+                            <td><textarea class="thousands" name = "q_content"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>파일첨부</td>
+                            <td>
+                                <div class="filebox bs3-primary preview-image">
+                                    <input class="upload-name" value="파일선택" disabled="disabled" style="width: 200px;">
+                                    <label for="input_file">파일첨부</label> 
+                                    <input type="file" id="input_file" name="pic" class="upload-hidden"> 
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="button_wrap">
+                    <button type="submit" class="post_reservation_reset">등록</button>
+                </div>
+            </div>
+        </form>
+        </fieldset>
+        
+        </div>
+    </div>
+
+{% endblock %}
+</body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js">
+
+</script>
+<script type="text/javascript"> //이메일 입력방식 선택
+$('#selectEmail').change(function(){ $("#selectEmail option:selected").each(function () { if($(this).val()== '1'){ 
+    //직접입력일 경우
+    $("#str_email02").val(''); 
+    //값 초기화 
+    $("#str_email02").attr("disabled",false);
+     //활성화
+      }else{
+           //직접입력이 아닐경우 
+           $("#str_email02").val($(this).text()); 
+           //선택값 입력 
+           $("#str_email02").attr("disabled",true); 
+           //비활성화 
+           } }); }); </script>
+<script type="text/javascript">
+$(document).ready(function() { $("#number").keyup(function(){ $(this).val($(this).val().replace(/[^0-9]/gi,"") ); }); //숫자만
+});
+
+$(document).ready(function(){
+var fileTarget = $('.filebox .upload-hidden');
+
+fileTarget.on('change', function(){
+if(window.FileReader){
+    // 파일명 추출
+    var filename = $(this)[0].files[0].name;
+} 
+
+else {
+    // Old IE 파일명 추출
+    var filename = $(this).val().split('/').pop().split('\\').pop();
+};
+
+$(this).siblings('.upload-name').val(filename);
+});
+
+//preview image 
+var imgTarget = $('.preview-image .upload-hidden');
+
+imgTarget.on('change', function(){
+var parent = $(this).parent();
+parent.children('.upload-display').remove();
+
+if(window.FileReader){
+    //image 파일만
+    if (!$(this)[0].files[0].type.match(/image\//)) return;
+    
+    var reader = new FileReader();
+    reader.onload = function(e){
+        var src = e.target.result;
+        parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>');
+    }
+    reader.readAsDataURL($(this)[0].files[0]);
+}
+
+else {
+    $(this)[0].select();
+    $(this)[0].blur();
+    var imgSrc = document.selection.createRange().text;
+    parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>');
+
+    var img = $(this).siblings('.upload-display').find('img');
+    img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";        
+}
+});
+});
+</script>

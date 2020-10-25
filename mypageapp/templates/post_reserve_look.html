@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/post_reserve_look.css' %}">
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+<section id="banner" class="major">
+    <div class="inner">
+        <header class="major">
+            <h1>택배예약조회</h1>
+            <h3>회원님의 택배예약현황을 조회할 수 있습니다.</h3>
+        </header>
+</section>
+
+<!-- Main -->
+<div class="post_reservation_info">
+<div class="post_reservation_info_wrap">
+    <div class="info_btn_wrap">
+        <a href="{% url 'post_reservation' %}"><button class="post_reservation_btn">택배예약</button></a>
+        <a href="{% url 'post_reserve_look' %}"><button class="post_reservation_btn">택배예약조회</button></a>
+    </div>
+    <form name="frm" action="{% url 'post_reserve_delete' %}" method="post" onsubmit="return isValidSubmit()">
+        {% csrf_token %}
+        <div class="post_reserve_look_con">
+            <table class="reserve_table mt_60">
+                <colgroup>
+                    <col style="width:10%" span="10">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">선택</th>
+                        <th scope="col">예약번호</th>
+                        <th scope="col">진행상태</th>
+                        <th scope="col">접수일</th>
+                        <th scope="col">집하요청일</th>
+                        <th scope="col">보내는 분</th>
+                        <th scope="col">받는 분</th>
+                        <th scope="col">물품명</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">운송장정보</th>
+                    </tr>
+                </thead>
+                {% for mybox in mybox %}
+                {% if mybox %}
+                <tbody>
+                    <tr>    
+                            <input name = 'mybox_id' type = 'hidden' value = "{{ mybox.id }}">
+                            <td><input type="radio" name="check" id="{{ mybox.id }}" value="1"><label for="{{ mybox.id }}"></label></td>
+                            <td><a href="{% url 'post_reserve_look_detail' mybox.id %}"><div class="reserve_num">{{ mybox.code }}</div></a></td>
+                            <td>{{ mybox.box_step }}</td>
+                            <td>{{ mybox.create_date|date:"Y-m-d" }}</td>
+                            <td>{{ mybox.visit_date|date:"Y-m-d" }}</td>
+                            <td>{{ mybox.sender }}</td> 
+                            <td>{{ mybox.receiver }}</td>
+                            <td>{{ mybox.box_detail }}</td>
+                            <td>{{ mybox.box_amount }}</td>
+                            <td>{{ mybox.worker }}<br>({{ mybox.worker_phone }})</td>
+                    </tr>
+                    
+                </tbody>
+                {% endif %}
+                {% endfor %}
+            </table>
+            
+
+            <div class="button_wrap">
+                <input type="submit" class="post_reserve_cancel" onclick="alertfunc()" value="예약취소">
+            </div>
+
+        </div>
+    </form>
+</div> 
+</div>
+<script>
+    function alertfunc() {
+        var form= document.frm;
+        if (!form.check.value){
+            alert("아무것도 체크되지 않았습니다");
+            form.check.select();
+            event.returnValue=false;
+        }
+    }
+</script>
+<script>
+    function isValidSubmit() {
+        var form=document.frm;
+        if(!form.check.value) return false;
+        
+        return true;
+    }
+</script>
+{% endblock %}

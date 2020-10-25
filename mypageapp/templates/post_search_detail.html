@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/post_search_detail.css' %}">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ekmz72alyl"></script>
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+
+<section id="banner" class="major">
+    <div class="inner">
+        <header class="major">
+            <h1>택배 조회 </h1>
+            <h3>택배 화물의 현위치를 조회 할 수 있습니다.</h3>
+        </header>
+    </div>
+</section>
+<!-- Main -->
+    <table class="tblH mt60">
+        <colgroup>
+            <col style="width:25%" span="5">
+        </colgroup>
+        <thead>
+            <tr>
+                <th scope="col">운송장 번호</th>
+                <th scope="col">발송지</th>
+                <th scope="col">도착지</th>
+                <th scope="col">받는사람</th>
+                <th scope="col">배송상황</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>       
+                    {% for box in box %}
+                    <td>{{box.code}}</td>
+                    <td>{{box.sender_address}}</td>
+                    <td>{{box.receiver_address}}</td>
+                    <td>{{box.sender}}</td>
+                    <td style ='color:red'>{{box.box_step}}</td>	
+                    {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <!-- 지도 넣는곳 -->
+    <div style='text-align:center'>
+    <div id="map" style="width:40%;height:400px; margin-left :30%"></div>  
+    </div>
+    {% for states in states %}
+        {% if forloop.counter == 1 %}
+    <script>
+        var logitude = "{{states.box_now.lo}}" // 경도
+        var latitude = "{{states.box_now.la}}" // 위도
+        var HOME_PATH = window.HOME_PATH || '.';
+        var cityhall = new naver.maps.LatLng(logitude, latitude),
+        map = new naver.maps.Map('map', {center: cityhall, zoom: 15}),
+        marker = new naver.maps.Marker({ map: map, position: cityhall });
+
+        // 마커내용
+
+        var des = '{{states.box_now.des}}'
+        var contentString = [
+            '<div class="iw_inner">',
+            des,
+            '</div>'
+        ].join('');
+
+var infowindow = new naver.maps.InfoWindow({
+    content: contentString,
+    maxWidth: 1400,
+    backgroundColor: "#eee",
+    borderColor: "#2db400",
+    borderWidth: 5,
+    anchorSize: new naver.maps.Size(30, 30),
+    anchorSkew: true,
+    anchorColor: "#eee",
+    pixelOffset: new naver.maps.Point(20, -20)
+});
+
+naver.maps.Event.addListener(marker, "click", function(e) {
+    if (infowindow.getMap()) {
+        infowindow.close();
+    } else {
+        infowindow.open(map, marker);
+    }
+});
+    </script>
+    <p style="text-align:center;">현재위치 : {{states.box_now.name}}
+    {% else %}
+    {% endif %}
+    {% endfor %}
+
+
+
+    <table class="tblH mt130">
+        <colgroup>
+            <col style="width:20%" span="4">
+        </colgroup>
+        <thead>
+            <tr>
+                <th scope="col">단계</th>
+                <th scope="col">시간</th>
+                <th scope="col">현재위치</th>
+                <th scope="col">처리현황</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for state in state %} 
+            <tr>       
+                <td>{{state.step}}</td>
+                <td>{{state.box_date}}</td>
+                <td>{{state.box_now.name}}</td>
+                <td>{{state.box_state}}</td>		
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+        </div>
+    </body>
+</html>

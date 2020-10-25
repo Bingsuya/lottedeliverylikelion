@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/mypage.css' %}">
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+<section id="banner" class="major">
+    <div class="inner">
+        <header class="major">
+            <h1>회원정보</h1>
+            <h3>회원님의 정보를 확인할 수 있습니다.</h3>
+        </header>
+</section>
+
+<!-- Main -->
+<div class="post_reservation_info">
+<div class="post_reservation_info_wrap">
+        {% if request.user.is_authenticated %}
+        <div class="post_reserve_look_con">
+            <table class="reserve_table mt_60">
+                <colgroup>
+                    <col style="width:25%;">
+                    <col style="width: auto;">
+                </colgroup>
+                
+                <tbody>
+                    <tr>
+                        <th scope="row">회원아이디</th>
+                        <td>{{ request.user.username }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">성명</th>
+                        <td>{{ request.user.name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">전화번호</th>
+                        <td>{{ request.user.phone }} </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">주소</th>
+                        <td>{{ request.user.address }}</td>
+                    </tr>
+                    <!-- <tr>
+                        <th scope="row">비밀번호</th>
+                        <td>
+                            <form action="#" method="post" enctype="multipart/form-data">
+                                <input type="submit" class="password_change" value="비밀번호 변경"> 
+                            </form>
+                        </td>
+                    </tr> -->
+                    <!-- <tr>
+                        <th scope="row">마이포인트</th>
+                        <td>1,020p</td>
+                    </tr> -->
+                </tbody>
+            </table>
+
+            <div class="button_wrap">
+                <a href="{% url 'post_reservation' %}"><button class="move_reservation">택배예약으로</button></a>
+            </div>
+            
+        </div>
+        {% endif %}
+</div> 
+</div>
+{% endblock %}

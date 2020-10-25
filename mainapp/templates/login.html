@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+<section id="banner" class="major">
+    <div class="inner">
+        <header class="major">
+            <h1>로그인</h1>
+        </header>
+    </div>
+</section>
+<!-- Main -->
+<div class="inner">
+    <div class="titArea">
+        <h2 class="titDep2">로그인</h2>
+    </div>
+    <div class="cont">
+        <div class="loginInpList">
+            <p style="color:red;">{{error}}</p>
+            <form action="{% url 'login' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" id="userId" name="userId" maxlength="20" placeholder="아이디">
+                <input type="password" class="userPwd" id="userPwd" name="userPwd" maxlength="20" placeholder="비밀번호">
+                <div class="login">
+                    <input type="submit" value="로그인" class="button">
+                </div>
+            </form>
+        </div>
+        <div class="joinFindList">
+            <a href="#"><span>아이디 찾기</span></a>
+            <a href="#"><span>비밀번호 재설정</span></a>
+            <a href="{% url 'signup' %}"><span>회원가입</span></a>
+        <div> 
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}
+  
+    </body>
+</html>

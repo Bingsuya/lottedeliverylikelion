@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Forty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>롯데택배</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		{% block head %}
+		{% endblock %}
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Header -->
+				<header id="header" class="alt">
+					<a href="{% url 'main' %}" class="logo"><img src="{% static 'images/thumb.png' %}" alt="icon"></a>
+					<nav>
+						{% if request.user.is_authenticated %}
+						<a href="{% url 'post_search' %}">택배조회</a>
+						<a href="{% url 'logout' %}">로그아웃</a>
+						<a href="{% url 'timeline' %}">타임라인</a>
+						<a href="{% url 'custom_voice' %}">고객지원</a>
+						<a href="{% url 'post_reservation' %}">택배예약</a>
+						{% else %}
+						<a href="{% url 'post_search' %}">택배조회</a>
+						<a href="{% url 'post_reservation' %}">택배예약</a>
+						<a href="{% url 'login' %}">로그인</a>
+						<a href="{% url 'mypage' %}">마이페이지</a>
+						<a href="{% url 'timeline' %}">타임라인</a>
+						<a href="{% url 'custom_voice' %}">고객지원</a>
+						{% endif %}	
+					</nav>
+                </header>
+                    
+                    {% block contents %}
+                    {% endblock %}
+
+                <footer id="footer">
+					<div class="inner">
+						<ul class="icons">
+							<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>COPYRIGHT &copy;</li>
+						</ul>
+					</div>
+                </footer>
+                    
+                <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+                <script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+                <script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+                <script src="{% static 'assets/js/browser.min.js' %}"></script>
+                <script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+                <script src="{% static 'assets/js/util.js' %}" ></script>
+                <script src="{% static 'assets/js/main.js' %}"></script>

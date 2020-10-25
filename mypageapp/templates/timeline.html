@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/timeline.css' %}">
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+<section id="banner" class="major">
+    <div class="inner">
+        <header class="major">
+            <h1>타임라인</h1>
+            <h3>지금까지 주고받은 택배를 볼 수 있습니다.</h3>
+        </header>
+</section>
+
+{% if request.user.is_authenticated %}
+<!-- Main -->
+<div class="timeline_info">
+    <div class="print">
+        <div class="print_img">
+        <a href="#"><img src="{% static 'images/icon_print.png' %}" alt="icon_print"></a>
+        </div>
+    </div>
+    {% for state in state %}
+
+    {% if mybox %}
+    <div class="timeline">
+        <div class="time">
+            {% for mybox in mybox %}
+            {% if state.box == mybox %}
+            <span class="date">{{ state.box_date|date:"Y-m-d" }}</span>
+        </div>
+        <div class="delivery_info">
+            <span class="delivery_num">{{ mybox.code }}</span> |
+            <span class="delivery_tf">{% if mybox.box_type == True %}받는택배 {% else %}보낸택배 {% endif %}</span>
+            <br>
+
+            <span class="delivery_state">{{ state.box_state }}</span> | <span class="delivery_place">{{ state.box_now }}</span>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
+
+</div>
+{% endif %}
+{% endblock %}
+
+
+        </div>
+    </body>
+</html>

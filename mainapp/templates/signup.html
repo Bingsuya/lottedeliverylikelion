@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head%}
+<link rel="stylesheet" href="{% static 'assets/css/signup.css' %}">
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+<section id="banner" class="major">
+    <div class="inner">
+        <header class="major">
+            <h1>회원가입</h1>
+        </header>
+    </div>
+</section>
+<!-- Main -->
+<div class="inner">
+    <div class="titArea">
+        <h2 class="titDep2">회원가입</h2>
+    </div>
+    <div class="cont">
+        <div class="joinTblArea">
+            <table class="tblV">
+                <colgroup>
+                    <col style="width:160px">
+                    <col style="width:auto">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <form action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <th scope="row" class="vtop">회원아이디</th>
+                        <td>
+                            <div class="floatArea btnInc">
+                                <input type="text" id="id" name="id" maxlength="30" title="회원아이디 입력">
+                            </div>
+                         </td>
+                        </tr>
+                    <tr>
+                        <th scope="row">이름</th>
+                        <td>
+                            <input type="text" id="name" name="name" maxlength="15" placeholder="이름입력">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">휴대폰 번호</th>
+                        <td>
+                            <input type="text" id="number" name="number" maxlength="30" placeholder="-없이 휴대폰번호 입력">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="vtop">비밀번호</th>
+                        <td>
+                            <input type="password" id="password" name="password" maxlength="30" title="비밀번호 입력">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="vtop">비밀번호 확인</th>
+                        <td>
+                            <span class="frmInp"><input type="password" id="repassword" name="repassword" maxlength="30" title="비밀번호 확인 입력">
+                        </td>
+                    </tr>   
+                    <tr>
+                        <th scope="row" class="vtop">주소</th>
+                        <td>
+                            <span class="frmInp"><input type="text" name ="address" maxlength="100" placeholder="주소입력">
+                        </td>
+                    </tr>     
+                    </tbody>
+                </table>
+            </div>
+            <div class="btnArea">
+                <input type="submit" class="button" value="회원가입"> 
+            </div>
+        </form>
+        </div>
+    </div>
+{% endblock %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'assets/css/custom_voice.css' %}">
+{% endblock %}
+
+{% block contents %}
+<!-- Banner -->
+	<section id="banner" class="major">
+		<div class="inner">
+			<header class="major">
+                <h1>고객의 소리</h1>
+                <h3>택배 관련 건의사항을 작성하고 볼 수 있습니다.</h3>
+			</header>
+		</div>
+	</section>
+	
+	<!-- Main -->
+	<table class="tblH mt60">
+		<colgroup>
+			<col span="5">
+		</colgroup>
+	<thead>
+		<tr>
+			<th scope="col">번호</th>
+			<th class="title" scope="col">제목</th>
+			<th scope="col">작성자</th>
+			<th scope="col">답변여부</th>
+			<th class="date" scope="col">작성날짜</th>
+			<th scope="col">조회수</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		{% for qna in qna %}
+		<tr>  
+			<td><span class="t"></span>{{ qna.id }}</td>
+			<td><a href="{% url 'custom_voice_detail' qna.pk %}" class="table_title"><span class="title2">{{ qna.q_title }}</span></a></td>
+			<td>{{ qna.user }}</td>
+			<td>
+				{% if qna.answers %}
+				답변완료
+				{% else %}
+				답변대기
+				{% endif %}
+			</td>
+			<td>{{ qna.q_time|date:"Y-m-d"}} {{ qna.q_time|time:"h:i"}}</td>
+			<td>{{ qna.today }}</td>	
+		</tr>
+		{% endfor %}
+	</tbody>
+	</table>
+		<div class="write">
+			<a href="{% url 'custom_voice_new' %}" class="button 	primary solid">고객의 소리 작성</a>
+		</div>
+	{% endblock %}
+		</div>		
+	</body>
+</html>
